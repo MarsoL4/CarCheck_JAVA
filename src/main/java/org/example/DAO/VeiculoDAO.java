@@ -31,7 +31,7 @@ public class VeiculoDAO {
                     + "modelo VARCHAR(50) NOT NULL, "
                     + "ano_fabricacao VARCHAR(4) NOT NULL, "
                     + "numero_chassi VARCHAR(50) UNIQUE NOT NULL, "
-                    + "CONSTRAINT chk_ano_fabricacao CHECK ( TO_NUMBER(ano_fabricacao) BETWEEN 1886 AND 2024), "
+                    + "CONSTRAINT chk_ano_fabricacao CHECK (TO_NUMBER(ano_fabricacao) BETWEEN 1886 AND 2024), "
                     + "FOREIGN KEY (cliente_id) REFERENCES TBL_CLIENTE(cliente_id)"
                     + ")";
             st.executeUpdate(sql);
@@ -50,7 +50,7 @@ public class VeiculoDAO {
         }
     }
 
-    public void inserirVeiculo(int veiculo_id, int cliente_id, String marca, String modelo, String ano_fabricacao, String numero_chassi, int quilometragem) {
+    public void inserirVeiculo(int veiculo_id, int cliente_id, String marca, String modelo, String ano_fabricacao, String numero_chassi) {
 
         try {
             if (con == null) {
@@ -59,7 +59,7 @@ public class VeiculoDAO {
             }
 
             // Inserção de dados
-            String sql = "INSERT INTO TBL_VEICULO (veiculo_id, cliente_id, marca, modelo, ano_fabricacao, numero_chassi, quilometragem) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO TBL_VEICULO (veiculo_id, cliente_id, marca, modelo, ano_fabricacao, numero_chassi) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, veiculo_id);
             st.setInt(2, cliente_id);
@@ -67,7 +67,6 @@ public class VeiculoDAO {
             st.setString(4, modelo);
             st.setString(5, ano_fabricacao);
             st.setString(6, numero_chassi);
-            st.setInt(7, quilometragem);
             st.executeUpdate();
             st.close();
 
@@ -78,29 +77,24 @@ public class VeiculoDAO {
         }
     }
 
-    //Método que Recupera os Veiculos existentes
-    public List<Veiculo> recuperarVeiculos(){
+    public List<Veiculo> recuperarVeiculos() {
         Statement st;
         ResultSet rs;
         List<Veiculo> lv = new ArrayList<>();
         try {
-            st= con.createStatement();
-            rs= st.executeQuery("select * from TBL_VEICULO");
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM TBL_VEICULO");
             System.out.println("\n\nLista dos Veículos cadastrados: ");
-            while (rs.next()){
-                Veiculo v = new Veiculo
-                        (rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+            while (rs.next()) {
+                Veiculo v = new Veiculo(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
                 lv.add(v);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("\nErro no select ");
         }
-        return lv; //retornou a lista
+        return lv;
     }
 
-
-    //Método que busca um Veiculo existente a partir de um numero de chassi
     public List<Veiculo> buscarVeiculoChassi(String numero_chassi) {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -111,9 +105,8 @@ public class VeiculoDAO {
             pst.setString(1, numero_chassi);
             rs = pst.executeQuery();
 
-            // Processando o resultado da busca
             while (rs.next()) {
-                Veiculo v = new Veiculo(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+                Veiculo v = new Veiculo(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
                 lvb.add(v);
             }
             pst.close();
@@ -131,7 +124,6 @@ public class VeiculoDAO {
         return lvb;
     }
 
-    //Método que elimina a TBL_VEICULO
     public void dropTabelaVeiculo() {
         Statement st = null;
 
@@ -159,5 +151,4 @@ public class VeiculoDAO {
             }
         }
     }
-
 }

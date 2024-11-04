@@ -7,16 +7,14 @@ public class Veiculo {
     String modelo;
     String ano_fabricacao;
     String numero_chassi;
-    int quilometragem;
 
-    public Veiculo(int veiculo_id, int cliente_id, String marca, String modelo, String ano_fabricacao, String numero_chassi, int quilometragem) {
+    public Veiculo(int veiculo_id, int cliente_id, String marca, String modelo, String ano_fabricacao, String numero_chassi) {
         this.veiculo_id = veiculo_id;
         this.cliente_id = cliente_id;
         this.marca = marca;
         this.modelo = modelo;
         this.ano_fabricacao = ano_fabricacao;
         this.numero_chassi = numero_chassi;
-        this.quilometragem = quilometragem;
     }
 
     public int getVeiculo_id() {
@@ -42,9 +40,4 @@ public class Veiculo {
     public String getNumero_chassi() {
         return numero_chassi;
     }
-
-    public int getQuilometragem() {
-        return quilometragem;
-    }
-
 }
