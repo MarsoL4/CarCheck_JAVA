@@ -78,7 +78,7 @@ public class VeiculoService {
                 System.out.println("Erro: Veículo não encontrado.");
                 return false;
             }
-            veiculoDAO.dropTabelaVeiculo();
+            veiculoDAO.deletarVeiculoPorChassi(numero_chassi);
             System.out.println("Veículo removido com sucesso!");
             return true;
         } catch (Exception e) {
@@ -86,4 +86,5 @@ public class VeiculoService {
             return false;
         }
     }
+
 }

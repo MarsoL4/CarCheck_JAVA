@@ -151,4 +151,35 @@ public class VeiculoDAO {
             }
         }
     }
+
+    public void deletarVeiculoPorChassi(String numero_chassi) {
+        PreparedStatement pst = null;
+
+        try {
+            if (con == null) {
+                System.out.println("Erro: Conexão não estabelecida.");
+                return;
+            }
+
+            String sql = "DELETE FROM TBL_VEICULO WHERE numero_chassi = ?";
+            pst = con.prepareStatement(sql);
+            pst.setString(1, numero_chassi);
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Veículo com chassi " + numero_chassi + " removido com sucesso!");
+            } else {
+                System.out.println("Veículo com chassi " + numero_chassi + " não encontrado.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar veículo: " + e.getMessage());
+        } finally {
+            try {
+                if (pst != null) pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+    }
+
 }
