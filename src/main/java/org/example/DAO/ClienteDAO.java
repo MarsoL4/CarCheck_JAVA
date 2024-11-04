@@ -156,4 +156,29 @@ public class ClienteDAO {
             System.out.println("Erro ao deletar a Tabela TBL_CLIENTE: " + e.getMessage());
         }
     }
+
+    // Método para buscar um cliente pelo ID no banco de dados
+    public Cliente buscarClientePorId(int id) {
+        Cliente cliente = null;
+        try {
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM TBL_CLIENTE WHERE cliente_id = ?");
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                cliente = new Cliente(
+                        rs.getInt("cliente_id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("contato"),
+                        rs.getString("cpf")
+                );
+            }
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            System.out.println("\nErro ao buscar cliente por ID: " + e.getMessage());
+        }
+        return cliente;
+    }
+
 }

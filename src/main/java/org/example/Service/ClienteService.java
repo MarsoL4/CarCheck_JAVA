@@ -90,4 +90,15 @@ public class ClienteService {
             return false;
         }
     }
+
+    // Método para buscar um cliente pelo ID
+    public Cliente buscarClientePorId(int id) {
+        try {
+            return clienteDAO.buscarClientePorId(id);
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar cliente: " + e.getMessage());
+            return null;
+        }
+    }
+
 }

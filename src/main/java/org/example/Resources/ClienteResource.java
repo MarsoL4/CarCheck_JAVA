@@ -33,6 +33,20 @@ public class ClienteResource {
         }
     }
 
+    // Método para buscar um cliente pelo ID
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarClientePorId(@PathParam("id") int id) {
+        Cliente cliente = clienteService.buscarClientePorId(id);
+        if (cliente == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Cliente não encontrado com o ID: " + id)
+                    .build();
+        }
+        return Response.ok(cliente).build();
+    }
+
     // Método para listar todos os clientes
     @GET
     @Produces(MediaType.APPLICATION_JSON)
