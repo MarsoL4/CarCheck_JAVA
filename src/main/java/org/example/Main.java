@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * Main clas.
+ * Main class.
  *
  */
 public class Main {
