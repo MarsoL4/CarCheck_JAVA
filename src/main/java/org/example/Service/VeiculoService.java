@@ -20,7 +20,7 @@ public class VeiculoService {
                 System.out.println("Erro: Veículo com o número de chassi informado já existe.");
                 return false;
             }
-            veiculoDAO.inserirVeiculo(veiculo.getVeiculo_id(), veiculo.getCliente_id(), veiculo.getMarca(),
+            veiculoDAO.inserirVeiculo(veiculo.getCliente_id(), veiculo.getMarca(),
                     veiculo.getModelo(), veiculo.getAno_fabricacao(), veiculo.getNumero_chassi());
             System.out.println("Veículo criado com sucesso!");
             return true;
@@ -60,9 +60,9 @@ public class VeiculoService {
                 System.out.println("Erro: Veículo não encontrado.");
                 return false;
             }
-            veiculoDAO.inserirVeiculo(veiculoAtualizado.getVeiculo_id(), veiculoAtualizado.getCliente_id(),
-                    veiculoAtualizado.getMarca(), veiculoAtualizado.getModelo(), veiculoAtualizado.getAno_fabricacao(),
-                    veiculoAtualizado.getNumero_chassi());
+            veiculoDAO.inserirVeiculo(veiculoAtualizado.getCliente_id(),
+                    veiculoAtualizado.getMarca(), veiculoAtualizado.getModelo(),
+                    veiculoAtualizado.getAno_fabricacao(), veiculoAtualizado.getNumero_chassi());
             System.out.println("Veículo atualizado com sucesso!");
             return true;
         } catch (Exception e) {
@@ -86,5 +86,4 @@ public class VeiculoService {
             return false;
         }
     }
-
 }
